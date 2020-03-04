@@ -18,7 +18,9 @@ public class CsvReader {
 
     public Iterable<CSVRecord> readAll() throws IOException {
         Reader reader = Files.newBufferedReader(Paths.get(FILENAME));
-        Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader()
+        Iterable<CSVRecord> records = CSVFormat.
+                EXCEL
+                .withFirstRecordAsHeader()
                 .withIgnoreHeaderCase()
                 .withTrim()
                 .parse(reader);

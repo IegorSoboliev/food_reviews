@@ -18,20 +18,5 @@ public class ReviewsApplication {
         } catch (IOException e) {
             throw new RuntimeException("Cannot find file", e);
         }
-//        try {
-//            List<String[]> records = CsvReader.readAll();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Cannot find file", e);
-//        } catch (CsvException e) {
-//            throw new RuntimeException("Cannot read file", e);
-//        }
-//
-//        CsvReader csvReader = new CsvReader();
-//        try {
-//            csvReader.readAllFromFile();
-//            System.out.println("Data was read");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 }
