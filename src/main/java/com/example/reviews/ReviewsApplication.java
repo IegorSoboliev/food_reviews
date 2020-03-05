@@ -15,6 +15,7 @@ public class ReviewsApplication {
         try {
             CsvReader csvReader = new CsvReader();
             csvReader.readAll();
+            System.out.println("Data was read");
         } catch (IOException e) {
             throw new RuntimeException("Cannot find file", e);
         }
