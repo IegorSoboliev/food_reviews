@@ -12,9 +12,6 @@ import org.apache.commons.csv.CSVRecord;
 public class CsvReader {
     private static final String FILENAME = "src/main/resources/Reviews.csv";
 
-    public CsvReader() throws IOException {
-    }
-
     public Iterable<CSVRecord> readAll() throws IOException {
         Reader reader = Files.newBufferedReader(Paths.get(FILENAME));
         Iterable<CSVRecord> records = CSVFormat.
