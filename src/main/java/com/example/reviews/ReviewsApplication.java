@@ -12,8 +12,6 @@ public class ReviewsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ReviewsApplication.class, args);
-        int i = 1071225 / 45;
-
         try {
             CsvReader csvReader = new CsvReader();
             csvReader.readAll();
