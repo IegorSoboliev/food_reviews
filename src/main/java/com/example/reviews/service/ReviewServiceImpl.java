@@ -19,4 +19,9 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> saveAll(List<Review> reviews) {
         return reviewRepository.saveAll(reviews);
     }
+
+    @Override
+    public Review save(Review review) {
+        return reviewRepository.save(review);
+    }
 }
