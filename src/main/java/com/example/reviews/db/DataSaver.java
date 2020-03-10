@@ -38,8 +38,7 @@ public class DataSaver {
                 review.setText(record.get("Text"));
                data.add(review);
             }
-            LOGGER.info("Read data from CSV file");
-//            List<Review> thousand = data.stream().limit(10000L).collect(Collectors.toList());
+            LOGGER.info("Data from CSV file was read and saved in List<Review>");
             reviewService.saveAll(data);
             LOGGER.info("Data was stored in h2 database");
         } catch (IOException e) {
