@@ -15,7 +15,7 @@ public class Review {
     @Id
     @GeneratedValue
     private Long id;
-    private Long productId;
+    private String productId;
     private String profileName;
     private int score;
     @Column (columnDefinition = "TEXT")
