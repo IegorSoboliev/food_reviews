@@ -6,6 +6,7 @@ import com.example.reviews.service.ReviewService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -39,7 +40,8 @@ public class DataSaver {
                data.add(review);
             }
             LOGGER.info("Data from CSV file was read and saved in List<Review>");
-            reviewService.saveAll(data);
+            List<Review> fiveThousands = data.stream().limit(5000L).collect(Collectors.toList());
+            reviewService.saveAll(fiveThousands);
             LOGGER.info("Data was stored in h2 database");
         } catch (IOException e) {
             throw new RuntimeException("Cannot store data from CSV file in h2 database");

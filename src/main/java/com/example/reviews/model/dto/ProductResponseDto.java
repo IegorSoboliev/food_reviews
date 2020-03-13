@@ -9,9 +9,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDto {
+public class ProductResponseDto {
     @NotNull
-    private String profileName;
-    @NotNull
+    private String productId;
     private Long numberOfReviews;
 }
