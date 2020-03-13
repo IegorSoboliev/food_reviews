@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/trends")
-public class TrendsController {
+public class ReviewTrendsController {
     private ReviewService reviewService;
 
-    public TrendsController(ReviewService reviewService) {
+    public ReviewTrendsController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 
