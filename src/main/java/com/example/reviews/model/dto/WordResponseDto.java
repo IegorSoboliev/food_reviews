@@ -1,17 +1,15 @@
 package com.example.reviews.model.dto;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDto {
+public class WordResponseDto {
     @NotNull
-    private String profileName;
-    @NotNull
-    private Long numberOfReviews;
+    private String word;
+    private Long counter;
 }
