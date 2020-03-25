@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,10 +15,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService userDetailsService;
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -51,28 +50,51 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
-                .antMatchers("/trends/users", "/trends.products").hasRole("USER")
-                .antMatchers("/trends/words").hasRole("ADMIN")
-                .antMatchers("/swagger-resources/**",
+        httpSecurity
+                .authorizeRequests()
+                .antMatchers( "/swagger-resources/**",
                         "/swagger-ui.html",
+                        "/v2/api-docs",
+                        "/webjars/**",
                         "/h2-console/**",
-                        "/authenticate").permitAll()
-                .antMatchers().permitAll()
+                        "/login").permitAll()
+                .antMatchers("/reviews/users", "/reviews/goods").hasRole("USER")
+                .antMatchers("/reviews/words").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginProcessingUrl("/login")
                 .and()
                 .httpBasic();
-        httpSecurity
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        httpSecurity
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();
+
+//        httpSecurity
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/authenticate", "/login", "/").permitAll()
+//                .antMatchers("/swagger-resources/**", "/swagger-ui.html", "/h2-console/**",
+//                        "/trends/users").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/trends.products", "/trends/words").hasRole("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .formLogin()
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/")
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID")
+//                .and()
+//                .httpBasic();
+//        httpSecurity
+//                .exceptionHandling()
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        httpSecurity
+//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+//                .headers().frameOptions().disable();
     }
 }
