@@ -7,14 +7,13 @@ import com.example.reviews.model.dto.WordResponseDto;
 import com.example.reviews.repository.ReviewRepository;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,17 +35,17 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<UserResponseDto> findActiveUsers() {
-        return reviewRepository.findActiveUsers();
+    public List<UserResponseDto> findActiveUsers(Pageable pageable) {
+        return reviewRepository.findActiveUsers(pageable);
     }
 
     @Override
-    public List<ProductResponseDto> findPopularProducts() {
-        return reviewRepository.findPopularProducts();
+    public List<ProductResponseDto> findPopularProducts(Pageable pageable) {
+        return reviewRepository.findPopularProducts(pageable);
     }
 
     @Override
-    public List<WordResponseDto> findPopularWords(Long amount) {
+    public List<WordResponseDto> findPopularWords(Integer limit) {
         return reviewRepository
                 .findPopularWords()
                 .stream()
@@ -56,7 +55,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(amount)
+                .limit(limit)
                 .map(Entry-> new WordResponseDto(Entry.getKey(), Entry.getValue()))
                 .collect(Collectors.toList());
     }

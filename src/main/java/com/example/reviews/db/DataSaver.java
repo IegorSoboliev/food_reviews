@@ -30,7 +30,7 @@ public class DataSaver {
     private RoleService roleService;
     private PasswordEncoder passwordEncoder;
 
-    private final Logger LOGGER = LogManager.getLogger(DataSaver.class);
+    private static final Logger LOGGER = LogManager.getLogger(DataSaver.class);
 
     public DataSaver(CsvReader csvReader, ReviewService reviewService, UserService userService,
                      RoleService roleService, PasswordEncoder passwordEncoder) {
